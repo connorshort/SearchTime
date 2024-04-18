@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Searchtimes</title>
+<style>
+    @font-face {
+        font-family: satoshi;
+        src: url(Satoshi-Variable.ttf);
+    }
+    body {
+        background-color: #3f804b;
+        color: #e2e2e2;
+        font-family: satoshi;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+    }
+    .clock-container{       
+        display: flex;      
+    }
+    .clockHeader{
+        font-size: 1.5em;
+        font-weight: bolder;
+    }
+    .clock {
+        border-radius: 5px;
+        background-color:rgba(255, 255, 255, .1);
+        padding: 20px;
+        text-align: center;
+        margin: 10px;
+        display: inline-block;
+        box-shadow: 0 5px 5px #11111150;
+        
+    }
+    .date{
+        text-align: center;
+    }
+    .time{
+        text-align: center;
+    }
+    .mainHeader{
+        font-size: 1.5em;
+        font-weight: bolder;
+        margin: 20px;
+    }
+    .search-time-group{
+        text-align: center;
+    }
+    .btn-group{
+        background-color:rgba(255, 255, 255, .1);
+        border-radius: 5px;
+        box-shadow: 0 5px 5px #11111150;
+        display: flex;
+        align-items: center;
+    }
+    .btn-group-button{
+        border: none;
+        cursor: pointer;
+        margin: 5px 20px;
+        padding: 5px 20px;
+        align-items: center;
+        border-radius: 5px;
+    }
+    .btn-group-button:hover{
+        color:#05ff33;
+    }
+    .btn-group-button.active{
+        background-color:rgba(255, 255, 255, .1);
+        color: #e2e2e2;
+    }
+    .searchBox {
+        border-radius: 5px;
+        background-color:rgba(255, 255, 255, .1);
+        padding: 5px 10px;
+        text-align: center;
+        margin: 10px;
+        display: flex;
+        box-shadow: 0 5px 5px #11111150;
+        justify-content: center;
+        align-items: center;
+    }
+    .searchBox.first{
+        margin-top:40px;
+    }
+    .search-title{
+        font-size: 1em;
+        font-weight: bold;
+        margin: 0px 10px 0 5px;
+    }
+    .search{
+
+    }
+</style>
+</head>
+<body>
+    
+<div class="clock-container">
+    <div class="clock">
+        <div class="clockHeader">PST</div>
+        <div class="date" id="pstDate">PST Date</div>
+        <div class="time" id="pstTime">PST Time</div>
+    </div>
+    <div class="clock">
+        <div class="clockHeader">EST</div>
+        <div class="date" id="estDate">EST Date</div>
+        <div class="time" id="estTime">EST Time</div>
+    </div>
+    <div class="clock">
+        <div class="clockHeader">UTC</div>
+        <div class="date" id="utcDate">UTC Date</div>
+        <div class="time" id="utcTime">UTC Time</div>   
+    </div>
+</div>
+<div class="mainHeader">Search Times</div>
+<div class="btn-group">
+    <div class="btn-group-button" id="SearchPST" onClick="switchSearch(0)">PST</div>
+    <div class="btn-group-button" id="SearchEST" onClick="switchSearch(1)">EST</div>
+    <div class="btn-group-button active" id="SearchUTC" onClick="switchSearch(2)">UTC</div>
+</div>
+
+<div class="search-time-group">
+    <div class="searchBox first">
+        <div class="search-title">
+            24 Hour Search: 
+        </div>
+        <div class="search" id="daySearch">
+            PLACEHOLDER
+        </div>
+    </div>
+    <div class="searchBox">
+        <div class="search-title">
+            7 Day Search: 
+        </div>
+        <div class="search" id="sevenDaySearch">
+            PLACEHOLDER
+        </div>
+    </div>
+</div>
+<script src="searchtime.js"></script>
+</body>
+</html>

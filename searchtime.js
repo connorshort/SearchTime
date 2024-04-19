@@ -65,9 +65,15 @@ function stringTime(d){
     }
     if(timeFormat==1){
         ampm=" AM";
+        if (hour==12){
+            ampm= " PM";
+        }
+        if (hour==0){
+            hour=12;
+        }
         if(hour>12){
             hour=hour-12;
-            ampm=" PM"
+            ampm=" PM";
         }
     }
     if(secondsChecked){

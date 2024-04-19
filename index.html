@@ -87,7 +87,7 @@
     .searchBox.first{
         margin-top:40px;
     }
-    .search-title{
+    .small-title{
         font-size: 1em;
         font-weight: bold;
         margin: 0px 10px 0 5px;
@@ -95,52 +95,157 @@
     .search{
 
     }
+    .settings{
+        text-align: center;
+        margin: 20px 0 0 0;
+        align-items: center;
+        justify-content: center;
+    }
+    .toggle-set{
+        margin: 20px 0 0 0;
+        border-color:black;
+        border-width: 1px;
+    }
+    .toggle-text{
+        vertical-align: middle;
+        padding-top: 10px 5px 10px 5px;
+        display: inline-block;
+    }
+    .toggle-row{
+        font-size:1.1em;
+        align-items: center;
+    }
+    .switch {
+        vertical-align: middle;
+        position: relative;
+        display: inline-block;
+        width: 30px;
+        height: 20px;
+        
+    }
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {  
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color:rgba(255, 255, 255, .3);
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 12px;
+        width: 12px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #4daa5e;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #4daa5e;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(10px);
+        -ms-transform: translateX(10px);
+        transform: translateX(10px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 20px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+    
 </style>
 </head>
-<body>
-    
-<div class="clock-container">
-    <div class="clock">
-        <div class="clockHeader">PST</div>
-        <div class="date" id="pstDate">PST Date</div>
-        <div class="time" id="pstTime">PST Time</div>
+<body>       
+    <div class="clock-container">
+        <div class="clock">
+            <div class="clockHeader">PST</div>
+            <div class="date" id="pstDate">PST Date</div>
+            <div class="time" id="pstTime">PST Time</div>
+        </div>
+        <div class="clock">
+            <div class="clockHeader">EST</div>
+            <div class="date" id="estDate">EST Date</div>
+            <div class="time" id="estTime">EST Time</div>
+        </div>
+        <div class="clock">
+            <div class="clockHeader">UTC</div>
+            <div class="date" id="utcDate">UTC Date</div>
+            <div class="time" id="utcTime">UTC Time</div>   
+        </div>
     </div>
-    <div class="clock">
-        <div class="clockHeader">EST</div>
-        <div class="date" id="estDate">EST Date</div>
-        <div class="time" id="estTime">EST Time</div>
+    <div class="mainHeader">Search Times</div>
+    <div class="btn-group">
+        <div class="btn-group-button" id="SearchPST" onClick="switchSearch(0)">PST</div>
+        <div class="btn-group-button" id="SearchEST" onClick="switchSearch(1)">EST</div>
+        <div class="btn-group-button active" id="SearchUTC" onClick="switchSearch(2)">UTC</div>
     </div>
-    <div class="clock">
-        <div class="clockHeader">UTC</div>
-        <div class="date" id="utcDate">UTC Date</div>
-        <div class="time" id="utcTime">UTC Time</div>   
-    </div>
-</div>
-<div class="mainHeader">Search Times</div>
-<div class="btn-group">
-    <div class="btn-group-button" id="SearchPST" onClick="switchSearch(0)">PST</div>
-    <div class="btn-group-button" id="SearchEST" onClick="switchSearch(1)">EST</div>
-    <div class="btn-group-button active" id="SearchUTC" onClick="switchSearch(2)">UTC</div>
-</div>
 
-<div class="search-time-group">
-    <div class="searchBox first">
-        <div class="search-title">
-            24 Hour Search: 
+    <div class="search-time-group">
+        <div class="searchBox first">
+            <div class="small-title">
+                24 Hour Search: 
+            </div>
+            <div class="search" id="daySearch">
+                PLACEHOLDER
+            </div>
         </div>
-        <div class="search" id="daySearch">
-            PLACEHOLDER
+        <div class="searchBox">
+            <div class="small-title">
+                7 Day Search: 
+            </div>
+            <div class="search" id="sevenDaySearch">
+                PLACEHOLDER
+            </div>
         </div>
     </div>
-    <div class="searchBox">
-        <div class="search-title">
-            7 Day Search: 
+    <div class="settings">
+        <div class="mainHeader">
+            Settings
         </div>
-        <div class="search" id="sevenDaySearch">
-            PLACEHOLDER
+        <div class="settings-content">
+            <div class="btn-group">
+                <div class="btn-group-button active" id="24Hour" onClick="switchFormat(0)">24 Hour Time</div>
+                <div class="btn-group-button" id="12Hour" onClick="switchFormat(1)">12 Hour AM/PM</div>
+            </div>
+            <div class="toggle-set">
+                <div class="toggle-row">
+                    <div class="toggle-text">Seconds:</div> 
+                    <label class="switch">
+                        <input type="checkbox" id="checkSeconds" onClick="update()">
+                        <span class="slider round"></span>
+                    </label>                   
+                    <div class="toggle-text">Timezone for both times:</div>
+                    <label class="switch" >
+                        <input type="checkbox" id="checkBoth" onClick="update()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<script src="searchtime.js"></script>
+    <script src="searchtime.js"></script>
 </body>
 </html>

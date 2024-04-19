@@ -12,12 +12,21 @@ var utcTime;
 
 // 0 is PST, 1 is EST, 2 is UTC
 var searchZone = 2;
+// 0 is 24 hour, 1 is 12 Hour
+var timeFormat=0;
+
+var secondsChecked=false;
+var bothTimeZones=false;
 
 document.getElementById("utcDate").innerHTML="test";
 setInterval(update, 1000);
 
 function update(){
     getTime()
+    var checkSecs=document.getElementById("checkSeconds");
+    var checkBoth=document.getElementById("checkBoth");
+    secondsChecked=checkSecs.checked;
+    bothTimeZones=checkBoth.checked;
     document.getElementById("utcDate").innerHTML=stringDate(utcDate);
     document.getElementById("utcTime").innerHTML=stringTime(utcDate);
     document.getElementById("pstDate").innerHTML=stringDate(pstDate);
@@ -47,12 +56,29 @@ function stringDate(d){
 }
 
 function stringTime(d){
+    ampm="";
+    let seconds="";
     let hour = d.getUTCHours();
     let minutes = d.getUTCMinutes();
     if(minutes < 10){
         minutes = "0" + minutes;
     }
-    return hour + ":" + minutes;
+    if(timeFormat==1){
+        ampm=" AM";
+        if(hour>12){
+            hour=hour-12;
+            ampm=" PM"
+        }
+    }
+    if(secondsChecked){
+        secondInt=d.getSeconds()
+        let extra="";
+        if(secondInt<10){
+            extra="0";
+        }
+        seconds=":" + extra + d.getSeconds();
+    }
+    return hour + ":" + minutes + seconds +  ampm ;
 }
 
 function stringSearch(timeInHours){
@@ -67,6 +93,9 @@ function stringSearch(timeInHours){
     if(searchZone==1){
         offset=estOffset;
         zoneText="EST";
+    }
+    if(bothTimeZones){
+        firstZoneText= " " + zoneText;
     }
     let firstDate=new Date(utcTime-offset-searchTime);
     let secondDate=new Date(utcTime-offset);
@@ -91,5 +120,18 @@ function switchSearch(zone){
         document.getElementById("SearchUTC").classList.add("active");
     }
     searchZone=zone;
+    update()
+}
+
+function switchFormat(format){
+    if(format==0){
+        document.getElementById("24Hour").classList.add("active");
+        document.getElementById("12Hour").classList.remove("active");
+    }
+    if(format==1){
+        document.getElementById("24Hour").classList.remove("active");
+        document.getElementById("12Hour").classList.add("active");
+    }
+    timeFormat=format;
     update()
 }

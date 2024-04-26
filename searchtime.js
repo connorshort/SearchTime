@@ -157,7 +157,7 @@ function switchFormat(format){
         document.getElementById("12Hour").classList.add("active");
     }
     timeFormat=format;
-    update()
+    update();
 }
 
 function currentTime(){
@@ -165,6 +165,7 @@ function currentTime(){
     document.getElementById("customTime").classList.remove("active");
     document.getElementById("timeBox").style.display='none';
     mainTime=0;
+    update();
 }
 
 function customTime(){
@@ -172,4 +173,5 @@ function customTime(){
     document.getElementById("currentTime").classList.remove("active");
     document.getElementById("timeBox").style.display='inline-block';
     mainTime=1;
+    update();
 }

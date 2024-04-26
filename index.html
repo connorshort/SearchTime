@@ -175,10 +175,31 @@
     .slider.round:before {
         border-radius: 50%;
     }
+    .time-input-box{
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: none;
+    }
+
+    
     
 </style>
 </head>
-<body>       
+<body>
+    <div class="btn-group">
+        <div class="btn-group-button active" id="currentTime" onClick="currentTime()">Current Time</div>
+        <div class="btn-group-button" id="customTime" onClick="customTime()">Custom Time</div>
+    </div>
+    <div class="time-input-box" id="timeBox">
+        <label>Enter Custom Time:</label>
+        <input type="date" id="entered-date" name="entered-date"/>
+        <input type="time" id="entered-time" name="entered-time"/>
+        <select id="custom-zone">
+            <option value="PST">PST</option>
+            <option value="EST">EST</option>
+            <option value="UTC">UTC</option>
+          </select>
+    </div> 
     <div class="clock-container">
         <div class="clock">
             <div class="clockHeader">PST</div>
@@ -202,7 +223,6 @@
         <div class="btn-group-button" id="SearchEST" onClick="switchSearch(1)">EST</div>
         <div class="btn-group-button active" id="SearchUTC" onClick="switchSearch(2)">UTC</div>
     </div>
-
     <div class="search-time-group">
         <div class="searchBox first">
             <div class="small-title">
@@ -248,4 +268,5 @@
     </div>
     <script src="searchtime.js"></script>
 </body>
+
 </html>

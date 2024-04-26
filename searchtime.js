@@ -14,6 +14,8 @@ var utcTime;
 var searchZone = 2;
 // 0 is 24 hour, 1 is 12 Hour
 var timeFormat=0;
+// 0 is current time, 1 is custom time
+var mainTime=0;
 
 var secondsChecked=false;
 var bothTimeZones=false;
@@ -43,6 +45,22 @@ function updateSearches(){
 
 function getTime(){
     utcDate=new Date()
+    enteredTime=document.getElementById('entered-time').value;
+    enteredDate=document.getElementById('entered-date').value;
+    if(mainTime != 0){
+        let diffTZ = utcDate.getTimezoneOffset();
+        enteredTime=document.getElementById('entered-time').value;
+        enteredDate=document.getElementById('entered-date').value;
+        customTimeString=enteredDate + "T" + enteredTime + ":00";
+        utcDate=new Date(Date.parse(customTimeString) - (diffTZ*60*1000));
+        customZone=document.getElementById('custom-zone').value;
+        if(customZone=='PST'){
+            utcDate=new Date(utcDate.getTime() + pstOffset)
+        }
+        else if(customZone=='EST'){
+            utcDate=new Date(utcDate.getTime() + estOffset)
+        }
+    }
     utcTime=utcDate.getTime();
     pstDate=new Date(utcTime-pstOffset);
     estDate=new Date(utcTime-estOffset);
@@ -140,4 +158,18 @@ function switchFormat(format){
     }
     timeFormat=format;
     update()
+}
+
+function currentTime(){
+    document.getElementById("currentTime").classList.add("active");
+    document.getElementById("customTime").classList.remove("active");
+    document.getElementById("timeBox").style.display='none';
+    mainTime=0;
+}
+
+function customTime(){
+    document.getElementById("customTime").classList.add("active");
+    document.getElementById("currentTime").classList.remove("active");
+    document.getElementById("timeBox").style.display='inline-block';
+    mainTime=1;
 }

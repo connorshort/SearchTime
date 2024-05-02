@@ -14,14 +14,30 @@ var utcTime;
 var searchZone = 2;
 // 0 is 24 hour, 1 is 12 Hour
 var timeFormat=0;
-// 0 is current time, 1 is custom time
+// 0 is current time, 1 is custom date/time, 2 is epoch time
 var mainTime=0;
 
 var secondsChecked=false;
 var bothTimeZones=false;
 
+const queryString = window.location.search;
+
 document.getElementById("utcDate").innerHTML="test";
 setInterval(update, 1000);
+
+function initialize(){
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.has('epoch')){
+        console.log('epoch selected');
+        const epochParam = urlParams.get('epoch');
+        console.log(epochParam);
+        document.getElementById('entered-epoch').value=epochParam;
+        document.getElementById('epoch-custom-zone').value='UTC';
+        epochTime();
+    }
+    update();
+}
 
 function update(){
     getTime()
@@ -45,15 +61,24 @@ function updateSearches(){
 
 function getTime(){
     utcDate=new Date()
-    enteredTime=document.getElementById('entered-time').value;
-    enteredDate=document.getElementById('entered-date').value;
     if(mainTime != 0){
         let diffTZ = utcDate.getTimezoneOffset();
-        enteredTime=document.getElementById('entered-time').value;
-        enteredDate=document.getElementById('entered-date').value;
-        customTimeString=enteredDate + "T" + enteredTime + ":00";
-        utcDate=new Date(Date.parse(customTimeString) - (diffTZ*60*1000));
-        customZone=document.getElementById('custom-zone').value;
+        if(mainTime==1){
+            enteredTime=document.getElementById('entered-time').value;
+            enteredDate=document.getElementById('entered-date').value;
+            customTimeString=enteredDate + "T" + enteredTime + ":00";
+            utcDate=new Date(Date.parse(customTimeString) - (diffTZ*60*1000));
+            customZone=document.getElementById('custom-zone').value;
+        }
+        else if(mainTime==2){
+            enteredEpoch=document.getElementById('entered-epoch').value;
+            if(enteredEpoch.length==10){
+                enteredEpoch=enteredEpoch + "000";
+            }
+            epochNum=parseInt(enteredEpoch);
+            utcDate=new Date(epochNum);
+            customZone=document.getElementById('epoch-custom-zone').value;
+        }
         if(customZone=='PST'){
             utcDate=new Date(utcDate.getTime() + pstOffset)
         }
@@ -164,6 +189,7 @@ function currentTime(){
     document.getElementById("currentTime").classList.add("active");
     document.getElementById("customTime").classList.remove("active");
     document.getElementById("timeBox").style.display='none';
+    document.getElementById("epochBox").style.display='none';
     mainTime=0;
     update();
 }
@@ -171,7 +197,19 @@ function currentTime(){
 function customTime(){
     document.getElementById("customTime").classList.add("active");
     document.getElementById("currentTime").classList.remove("active");
+    document.getElementById("epochTime").classList.remove("active");
     document.getElementById("timeBox").style.display='inline-block';
+    document.getElementById("epochBox").style.display='none';
     mainTime=1;
+    update();
+}
+
+function epochTime(){
+    document.getElementById("currentTime").classList.remove("active");
+    document.getElementById("customTime").classList.remove("active");
+    document.getElementById("epochTime").classList.add("active");
+    document.getElementById("timeBox").style.display='none';
+    document.getElementById("epochBox").style.display='inline-block';
+    mainTime=2;
     update();
 }

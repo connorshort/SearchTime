@@ -185,10 +185,11 @@
     
 </style>
 </head>
-<body>
+<body onLoad="initialize()">
     <div class="btn-group">
         <div class="btn-group-button active" id="currentTime" onClick="currentTime()">Current Time</div>
-        <div class="btn-group-button" id="customTime" onClick="customTime()">Custom Time</div>
+        <div class="btn-group-button" id="customTime" onClick="customTime()">Custom Date/Time</div>
+        <div class="btn-group-button" id="epochTime" onClick="epochTime()">Epoch Time</div>
     </div>
     <div class="time-input-box" id="timeBox">
         <label>Enter Custom Time:</label>
@@ -199,7 +200,16 @@
             <option value="EST">EST</option>
             <option value="UTC">UTC</option>
           </select>
-    </div> 
+    </div>
+    <div class="time-input-box" id="epochBox">
+        <label>Enter Epoch Time:</label>
+        <input type="number" id="entered-epoch" name="entered-epoch"/>
+        <select id="epoch-custom-zone">
+            <option value="PST">PST</option>
+            <option value="EST">EST</option>
+            <option value="UTC">UTC</option>
+          </select>
+    </div>  
     <div class="clock-container">
         <div class="clock">
             <div class="clockHeader">PST</div>

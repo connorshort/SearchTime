@@ -23,7 +23,7 @@
     .clock-container{       
         display: flex;      
     }
-    .clockHeader{
+    .clock-header{
         font-size: 1.5em;
         font-weight: bolder;
     }
@@ -180,6 +180,36 @@
         margin-bottom: 15px;
         display: none;
     }
+    .custom-search-time{
+        font-size: 1em;
+        font-weight: bold;
+        margin: 0px 10px 0 5px;
+        font-family: satoshi;
+        src: url(Satoshi-Variable.ttf);
+        background-color:rgba(0, 0, 0, 0.1);
+        margin-right: 5px;
+        width:60px;
+        color: #e2e2e2;
+        border-radius: 5px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+    }
+    .custom-unit{
+        font-size: 1em;
+        font-weight: bold;
+        margin: 0px 10px 0 5px;
+        font-family: satoshi;
+        src: url(Satoshi-Variable.ttf);
+        background-color:rgba(0, 0, 0, 0.1);
+        margin-right: 5px;
+        width:70px;
+        color: #e2e2e2;
+        border-radius: 5px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+    }
 
     
     
@@ -187,11 +217,11 @@
 </head>
 <body onLoad="initialize()">
     <div class="btn-group">
-        <div class="btn-group-button active" id="currentTime" onClick="currentTime()">Current Time</div>
-        <div class="btn-group-button" id="customTime" onClick="customTime()">Custom Date/Time</div>
-        <div class="btn-group-button" id="epochTime" onClick="epochTime()">Epoch Time</div>
+        <div class="btn-group-button active" id="current-time" onClick="currentTime()">Current Time</div>
+        <div class="btn-group-button" id="custom-time" onClick="customTime()">Custom Date/Time</div>
+        <div class="btn-group-button" id="epoch-time" onClick="epochTime()">Epoch Time</div>
     </div>
-    <div class="time-input-box" id="timeBox">
+    <div class="time-input-box" id="time-box">
         <label>Enter Custom Time:</label>
         <input type="date" id="entered-date" name="entered-date"/>
         <input type="time" id="entered-time" name="entered-time"/>
@@ -201,30 +231,30 @@
             <option value="UTC">UTC</option>
           </select>
     </div>
-    <div class="time-input-box" id="epochBox">
+    <div class="time-input-box" id="epoch-box">
         <label>Enter Epoch Time:</label>
         <input type="number" id="entered-epoch" name="entered-epoch"/>
         <select id="epoch-custom-zone">
             <option value="PST">PST</option>
             <option value="EST">EST</option>
             <option value="UTC">UTC</option>
-          </select>
+        </select>
     </div>  
     <div class="clock-container">
         <div class="clock">
-            <div class="clockHeader">PST</div>
-            <div class="date" id="pstDate">PST Date</div>
-            <div class="time" id="pstTime">PST Time</div>
+            <div class="clock-header">PST</div>
+            <div class="date" id="pst-date">PST Date</div>
+            <div class="time" id="pst-time">PST Time</div>
         </div>
         <div class="clock">
-            <div class="clockHeader">EST</div>
-            <div class="date" id="estDate">EST Date</div>
-            <div class="time" id="estTime">EST Time</div>
+            <div class="clock-header">EST</div>
+            <div class="date" id="est-date">EST Date</div>
+            <div class="time" id="est-time">EST Time</div>
         </div>
         <div class="clock">
-            <div class="clockHeader">UTC</div>
-            <div class="date" id="utcDate">UTC Date</div>
-            <div class="time" id="utcTime">UTC Time</div>   
+            <div class="clock-header">UTC</div>
+            <div class="date" id="utc-date">UTC Date</div>
+            <div class="time" id="utc-time">UTC Time</div>   
         </div>
     </div>
     <div class="mainHeader">Search Times</div>
@@ -247,6 +277,19 @@
                 7 Day Search: 
             </div>
             <div class="search" id="sevenDaySearch">
+                PLACEHOLDER
+            </div>
+        </div>
+        <div class="searchBox">
+            <input type="number" class="custom-search-time" id="custom-search-time" name="custom-search-time" value="6"/>
+            <select id="custom-unit" class="custom-unit">
+                <option value="Hour">Hour</option>
+                <option value="Day">Day</option>
+            </select>
+            <div class="small-title">
+                Search: 
+            </div>
+            <div class="search" id="custom-search">
                 PLACEHOLDER
             </div>
         </div>

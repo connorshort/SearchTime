@@ -22,7 +22,6 @@ var bothTimeZones=false;
 
 const queryString = window.location.search;
 
-document.getElementById("utcDate").innerHTML="test";
 setInterval(update, 1000);
 
 function initialize(){
@@ -45,18 +44,25 @@ function update(){
     var checkBoth=document.getElementById("checkBoth");
     secondsChecked=checkSecs.checked;
     bothTimeZones=checkBoth.checked;
-    document.getElementById("utcDate").innerHTML=stringDate(utcDate);
-    document.getElementById("utcTime").innerHTML=stringTime(utcDate);
-    document.getElementById("pstDate").innerHTML=stringDate(pstDate);
-    document.getElementById("pstTime").innerHTML=stringTime(pstDate);
-    document.getElementById("estDate").innerHTML=stringDate(estDate);
-    document.getElementById("estTime").innerHTML=stringTime(estDate);
+    document.getElementById("utc-date").innerHTML=stringDate(utcDate);
+    document.getElementById("utc-time").innerHTML=stringTime(utcDate);
+    document.getElementById("pst-date").innerHTML=stringDate(pstDate);
+    document.getElementById("pst-time").innerHTML=stringTime(pstDate);
+    document.getElementById("est-date").innerHTML=stringDate(estDate);
+    document.getElementById("est-time").innerHTML=stringTime(estDate);
     updateSearches();
 }
 
 function updateSearches(){
     document.getElementById("daySearch").innerHTML=stringSearch(24);
     document.getElementById("sevenDaySearch").innerHTML=stringSearch(24 * 7);
+    let multiplier=1;
+    let customSearchUnit=document.getElementById('custom-unit').value;
+    if(customSearchUnit=='Day'){
+        multiplier=24;
+    }
+    let customSearchTime=parseInt(document.getElementById('custom-search-time').value);
+    document.getElementById("custom-search").innerHTML=stringSearch(multiplier*customSearchTime);
 }
 
 function getTime(){
@@ -72,8 +78,12 @@ function getTime(){
         }
         else if(mainTime==2){
             enteredEpoch=document.getElementById('entered-epoch').value;
+            enteredEpoch=enteredEpoch.replace(".", "");
             if(enteredEpoch.length==10){
                 enteredEpoch=enteredEpoch + "000";
+            }
+            else if(enteredEpoch.length>=16){
+                enteredEpoch = enteredEpoch.slice(0,13);
             }
             epochNum=parseInt(enteredEpoch);
             utcDate=new Date(epochNum);
@@ -186,30 +196,31 @@ function switchFormat(format){
 }
 
 function currentTime(){
-    document.getElementById("currentTime").classList.add("active");
-    document.getElementById("customTime").classList.remove("active");
-    document.getElementById("timeBox").style.display='none';
-    document.getElementById("epochBox").style.display='none';
+    document.getElementById("current-time").classList.add("active");
+    document.getElementById("custom-time").classList.remove("active");
+    document.getElementById("time-box").style.display='none';
+    document.getElementById("epoch-time").classList.remove("active");
+    document.getElementById("epoch-box").style.display='none';
     mainTime=0;
     update();
 }
 
 function customTime(){
-    document.getElementById("customTime").classList.add("active");
-    document.getElementById("currentTime").classList.remove("active");
-    document.getElementById("epochTime").classList.remove("active");
-    document.getElementById("timeBox").style.display='inline-block';
-    document.getElementById("epochBox").style.display='none';
+    document.getElementById("custom-time").classList.add("active");
+    document.getElementById("current-time").classList.remove("active");
+    document.getElementById("epoch-time").classList.remove("active");
+    document.getElementById("time-box").style.display='inline-block';
+    document.getElementById("epoch-box").style.display='none';
     mainTime=1;
     update();
 }
 
 function epochTime(){
-    document.getElementById("currentTime").classList.remove("active");
-    document.getElementById("customTime").classList.remove("active");
-    document.getElementById("epochTime").classList.add("active");
-    document.getElementById("timeBox").style.display='none';
-    document.getElementById("epochBox").style.display='inline-block';
+    document.getElementById("current-time").classList.remove("active");
+    document.getElementById("custom-time").classList.remove("active");
+    document.getElementById("epoch-time").classList.add("active");
+    document.getElementById("time-box").style.display='none';
+    document.getElementById("epoch-box").style.display='inline-block';
     mainTime=2;
     update();
 }

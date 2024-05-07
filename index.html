@@ -37,6 +37,10 @@
         box-shadow: 0 5px 5px #11111150;
         
     }
+    .clock:hover{
+        background-color:rgba(255, 255, 255, .05);
+        cursor: pointer;
+    }
     .date{
         text-align: center;
     }
@@ -86,6 +90,10 @@
     }
     .searchBox.first{
         margin-top:40px;
+    }
+    .searchBox:hover{
+        background-color:rgba(255, 255, 255, .05);
+        cursor: pointer;
     }
     .small-title{
         font-size: 1em;
@@ -231,7 +239,7 @@
             <option value="UTC">UTC</option>
           </select>
     </div>
-    <div class="time-input-box" id="epoch-box">
+    <div class="time-input-box" id="epoch-box" >
         <label>Enter Epoch Time:</label>
         <input type="number" id="entered-epoch" name="entered-epoch"/>
         <select id="epoch-custom-zone">
@@ -240,19 +248,19 @@
             <option value="UTC">UTC</option>
         </select>
     </div>  
-    <div class="clock-container">
-        <div class="clock">
+    <div class="clock-container" >
+        <div class="clock" onclick="copyClock('PST')">
             <div class="clock-header">PST</div>
             <div class="date" id="pst-date">PST Date</div>
             <div class="time" id="pst-time">PST Time</div>
         </div>
-        <div class="clock">
-            <div class="clock-header">EST</div>
+        <div class="clock" onclick="copyClock('EST')">
+            <div class="clock-header" >EST</div>
             <div class="date" id="est-date">EST Date</div>
             <div class="time" id="est-time">EST Time</div>
         </div>
-        <div class="clock">
-            <div class="clock-header">UTC</div>
+        <div class="clock" onclick="copyClock('UTC')">
+            <div class="clock-header" >UTC</div>
             <div class="date" id="utc-date">UTC Date</div>
             <div class="time" id="utc-time">UTC Time</div>   
         </div>
@@ -264,24 +272,24 @@
         <div class="btn-group-button active" id="SearchUTC" onClick="switchSearch(2)">UTC</div>
     </div>
     <div class="search-time-group">
-        <div class="searchBox first">
+        <div class="searchBox first" onclick="copySearch('day')">
             <div class="small-title">
                 24 Hour Search: 
             </div>
-            <div class="search" id="daySearch">
+            <div class="search" id="daySearch" >
                 PLACEHOLDER
             </div>
         </div>
-        <div class="searchBox">
+        <div class="searchBox" onclick="copySearch('week')">
             <div class="small-title">
                 7 Day Search: 
             </div>
-            <div class="search" id="sevenDaySearch">
+            <div class="search" id="sevenDaySearch" >
                 PLACEHOLDER
             </div>
         </div>
-        <div class="searchBox">
-            <input type="number" class="custom-search-time" id="custom-search-time" name="custom-search-time" value="6"/>
+        <div class="searchBox" onclick="copySearch('custom-search')">
+            <input type="number" class="custom-search-time" id="custom-search-time" name="custom-search-time" value="6" />
             <select id="custom-unit" class="custom-unit">
                 <option value="Hour">Hour</option>
                 <option value="Day">Day</option>
@@ -293,6 +301,9 @@
                 PLACEHOLDER
             </div>
         </div>
+    </div>
+    <div>
+        Click any clock or search to copy timestamps!
     </div>
     <div class="settings">
         <div class="mainHeader">

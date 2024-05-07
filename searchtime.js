@@ -224,3 +224,36 @@ function epochTime(){
     mainTime=2;
     update();
 }
+
+function copyClock(selection){
+    let copyDate;
+    let copyTime;
+    if(selection=='PST'){
+        copyDate=document.getElementById('pst-date');
+        copyTime=document.getElementById('pst-time');
+    }
+    else if(selection=='EST'){
+        copyDate=document.getElementById('est-date');
+        copyTime=document.getElementById('est-time');
+    }
+    else{
+        copyDate=document.getElementById('utc-date');
+        copyTime=document.getElementById('utc-time');
+    }
+    navigator.clipboard.writeText(copyDate.innerHTML + " " + copyTime.innerHTML + " " + selection);
+}
+
+function copySearch(selection){
+    let copySearch;
+    if(selection=='day'){
+        copySearch=document.getElementById('daySearch');
+    }
+    else if(selection=='week'){
+        copySearch=document.getElementById('sevenDaySearch');
+    }
+    else{
+        copySearch=document.getElementById('custom-search')
+    }
+    
+    navigator.clipboard.writeText(copySearch.innerHTML);
+}

@@ -25,17 +25,21 @@ const queryString = window.location.search;
 setInterval(update, 1000);
 
 function initialize(){
+    update();
     console.log(queryString);
     const urlParams = new URLSearchParams(queryString);
+    document.getElementById('epoch-custom-zone').value='UTC';
     if(urlParams.has('epoch')){
         console.log('epoch selected');
         const epochParam = urlParams.get('epoch');
         console.log(epochParam);
         document.getElementById('entered-epoch').value=epochParam;
-        document.getElementById('epoch-custom-zone').value='UTC';
+
         epochTime();
     }
-    update();
+    else{
+        document.getElementById('entered-epoch').value=utcDate.getTime();
+    }
 }
 
 function update(){
@@ -81,6 +85,12 @@ function getTime(){
             enteredEpoch=enteredEpoch.replace(".", "");
             if(enteredEpoch.length==10){
                 enteredEpoch=enteredEpoch + "000";
+            }
+            if(enteredEpoch.length==11){
+                enteredEpoch=enteredEpoch + "00";
+            }
+            if(enteredEpoch.length==12){
+                enteredEpoch=enteredEpoch + "0";
             }
             else if(enteredEpoch.length>=16){
                 enteredEpoch = enteredEpoch.slice(0,13);
@@ -241,6 +251,7 @@ function copyClock(selection){
         copyTime=document.getElementById('utc-time');
     }
     navigator.clipboard.writeText(copyDate.innerHTML + " " + copyTime.innerHTML + " " + selection);
+    copyText('clock');
 }
 
 function copySearch(selection){
@@ -254,6 +265,24 @@ function copySearch(selection){
     else{
         copySearch=document.getElementById('custom-search')
     }
-    
     navigator.clipboard.writeText(copySearch.innerHTML);
+    copyText('search');
+}
+
+function copyText(type){
+    let textBox;
+    if(type=='search'){
+        textBox=document.getElementById('search-copy-text');
+    }
+    else{
+        textBox=document.getElementById('clock-copy-text');
+    }
+    textBox.innerHTML="Copied!";
+    textBox.classList.add("active");
+    textBox.classList.remove("fade");
+    setTimeout(() => {
+        textBox.classList.add('fade');
+        textBox.classList.remove('active');
+    }, 1000);
+    
 }

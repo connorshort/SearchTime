@@ -218,6 +218,22 @@
         border-bottom: 1px solid #fff;
         outline: none;
     }
+    .copy-text{
+        
+        
+    }
+    .copy-text.active{
+        opacity: 1;
+    }
+    .copy-text.fade{
+        -webkit-transition: opacity 1s ease-in;
+        -moz-transition: opacity 1s ease-in;
+        -ms-transition: opacity 1s ease-in;
+        -o-transition: opacity 1s ease-in;
+        transition: opacity 1s ease-in;
+        opacity: 0;
+    }
+
 
     
     
@@ -265,6 +281,9 @@
             <div class="time" id="utc-time">UTC Time</div>   
         </div>
     </div>
+    <div id="clock-copy-text" class="copy-text">
+        Click any clock to copy timestamps!
+    </div>
     <div class="mainHeader">Search Times</div>
     <div class="btn-group">
         <div class="btn-group-button" id="SearchPST" onClick="switchSearch(0)">PST</div>
@@ -302,8 +321,8 @@
             </div>
         </div>
     </div>
-    <div>
-        Click any clock or search to copy timestamps!
+    <div id="search-copy-text" class="copy-text">
+        Click any search to copy timestamps!
     </div>
     <div class="settings">
         <div class="mainHeader">
